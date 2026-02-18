@@ -1,5 +1,6 @@
 import random
 
+
 class Model:
     def __init__(self, width, height, seed=None):
         if width <= 0 or height <= 0:
@@ -10,10 +11,10 @@ class Model:
         self.agents = []
         self.time = 0
         self._next_uid = 0
-    
+
     def random_position(self):
         return (self.rng.randrange(self.width), self.rng.randrange(self.height))
-    
+
     def add_agent(self, agent):
         self.agents.append(agent)
 
@@ -29,8 +30,8 @@ class Model:
 
     def next_uid(self):
         uid = self._next_uid
-        self._next_uid +=1
-        return uid 
+        self._next_uid += 1
+        return uid
 
     def step(self):
         """
@@ -39,8 +40,8 @@ class Model:
 
         self.rng.shuffle(self.agents)
 
-       #tod0:
-        #- all agents Move
+        # tod0:
+        # - all agents Move
         # - all interact (eat)
         # - all reproduce (if possible)
         for agent in self.agents:
@@ -49,12 +50,11 @@ class Model:
                 agent.interact()
                 agent.reproduce()
 
-
-        #- model cleanup the DEAD, remove dead agent from the agent list
+        # - model cleanup the DEAD, remove dead agent from the agent list
         self.agents = [agent for agent in self.agents if agent.alive]
 
         self.time += 1
-        
-    def run(self, steps:int):
+
+    def run(self, steps: int):
         for _ in range(steps):
             self.step()
